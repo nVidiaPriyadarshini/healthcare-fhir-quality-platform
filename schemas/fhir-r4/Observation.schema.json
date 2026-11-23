@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nVidiaPriyadarshini/healthcare-fhir-quality-platform/blob/main/schemas/fhir-r4/Observation.schema.json",
+  "title": "FHIR R4 Observation — platform ingestion schema",
+  "description": "Starter JSON Schema for the platform's Observation ingestion payload. This is not the official HL7 FHIR R4 Observation schema or a profile validator. Additional FHIR elements are permitted.",
+  "type": "object",
+  "properties": {
+    "resourceType": {
+      "const": "Observation",
+      "description": "FHIR resource discriminator."
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required by the platform ingestion endpoint; used as the unique persisted resource identifier."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "registered",
+        "preliminary",
+        "final",
+        "amended",
+        "corrected",
+        "cancelled",
+        "entered-in-error",
+        "unknown"
+      ]
+    },
+    "category": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "code": {
+      "type": "object",
+      "description": "FHIR CodeableConcept; detailed coding and terminology checks are not implemented."
+    },
+    "subject": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "reference"
+      ],
+      "additionalProperties": true
+    },
+    "valueQuantity": {
+      "type": "object",
+      "description": "FHIR Quantity; value, unit, system and code are not deeply validated."
+    }
+  },
+  "required": [
+    "resourceType",
+    "id"
+  ],
+  "additionalProperties": true
+}
