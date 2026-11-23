@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 from fastapi import Depends,FastAPI,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,7 +12,10 @@ async def lifespan(app:FastAPI):
     Base.metadata.create_all(bind=engine)
     yield
 app=FastAPI(title="Healthcare FHIR Quality Platform",version="1.0.0",lifespan=lifespan)
-app.add_middleware(CORSMiddleware,allow_origins=["http://localhost:5173","http://localhost:4173"],allow_credentials=False,allow_methods=["*"],allow_headers=["*"])
+# Set CORS_ORIGINS to a comma-separated list of trusted frontend origins.
+# A wildcard is suitable only for this unauthenticated, synthetic-data demo.
+cors_origins=os.getenv("CORS_ORIGINS","http://localhost:5173,http://localhost:4173")
+app.add_middleware(CORSMiddleware,allow_origins=[origin.strip() for origin in cors_origins.split(",") if origin.strip()],allow_credentials=False,allow_methods=["*"],allow_headers=["*"])
 @app.get("/health")
 def health(): return {"status":"ok","fhir_version":"R4"}
 @app.post("/api/v1/validate")
