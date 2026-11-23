@@ -10,7 +10,7 @@ def validate_resource(resource:dict[str,Any])->dict[str,Any]:
     for f in missing: issues.append({"severity":"warning","code":"missing-required-data","message":f"Missing recommended field: {f}"})
     if kind=="Patient" and resource.get("gender") not in {None,"male","female","other","unknown"}: issues.append({"severity":"error","code":"invalid-gender","message":"Invalid Patient.gender code"})
     if kind=="Observation" and resource.get("status") not in {"registered","preliminary","final","amended","corrected","cancelled","entered-in-error","unknown"}: issues.append({"severity":"error","code":"invalid-observation-status","message":"Invalid Observation.status code"})
-    if kind=="Encounter" and resource.get("status") not in {"planned","in-progress","on-hold","discharged","completed","cancelled","discontinued","entered-in-error","unknown"}: issues.append({"severity":"error","code":"invalid-encounter-status","message":"Invalid Encounter.status code"})
+    if kind=="Encounter" and resource.get("status") not in {"planned","in-progress","onleave","finished","cancelled","entered-in-error"}: issues.append({"severity":"error","code":"invalid-encounter-status","message":"Invalid Encounter.status code"})
     ref=resource.get("subject")
     if ref is not None and (not isinstance(ref,dict) or not isinstance(ref.get("reference"),str)): issues.append({"severity":"error","code":"invalid-reference","message":"subject must contain a reference string"})
     errors=sum(i["severity"]=="error" for i in issues); warnings=sum(i["severity"]=="warning" for i in issues)
