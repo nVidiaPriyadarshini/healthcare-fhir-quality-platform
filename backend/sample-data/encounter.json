@@ -1,0 +1,1 @@
+{"resourceType":"Encounter","id":"synthetic-encounter-001","status":"finished","class":{"system":"http://terminology.hl7.org/CodeSystem/v3-ActCode","code":"AMB"},"subject":{"reference":"Patient/synthetic-patient-001"},"period":{"start":"2025-01-01T09:00:00Z","end":"2025-01-01T09:30:00Z"}}
