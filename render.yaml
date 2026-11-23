@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: healthcare-fhir-quality-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: CORS_ORIGINS
+        value: "*"
+
+  - type: web
+    name: healthcare-fhir-quality-dashboard
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      # Set this in the Render dashboard after the API service has a public URL.
+      - key: VITE_API_URL
+        sync: false
