@@ -23,6 +23,20 @@ The ingestion endpoint is `POST /api/v1/resources` with a FHIR JSON resource as 
 
 The standalone `POST /api/v1/validate` endpoint accepts a JSON object and returns a validation result. It records a row in `validation_runs`, including for invalid resources. It does not persist the resource payload. When the resource has no `id`, the validation-run record uses `unidentified`.
 
+## 1.1 Machine-readable JSON Schemas
+
+Starter JSON Schema documents are maintained under `schemas/fhir-r4/` using JSON Schema Draft 2020-12:
+
+| Resource | Schema |
+|---|---|
+| Patient | [`Patient.schema.json`](../schemas/fhir-r4/Patient.schema.json) |
+| Observation | [`Observation.schema.json`](../schemas/fhir-r4/Observation.schema.json) |
+| Encounter | [`Encounter.schema.json`](../schemas/fhir-r4/Encounter.schema.json) |
+
+These schemas are intentionally permissive: they require the resource discriminator and non-empty `id` used by the ingestion API, describe selected fields and code sets, and allow other FHIR elements. They are **not** official HL7 schemas and do not implement complete FHIR R4 validation. In particular, Patient name/gender and Observation/Encounter quality fields can be absent at the JSON Schema level because the current API reports several such omissions as quality warnings rather than rejecting ingestion. A supplied `subject` must have a string `reference` in these starter schemas, matching the platform's current shape check.
+
+The JSON Schemas are documentation/interoperability aids at present; the FastAPI routes do not automatically load or execute them. The Python rule engine remains the runtime validation implementation.
+
 ## 2. Resource schemas and field dictionary
 
 The tables below describe the important fields represented by the current sample fixtures and the checks currently implemented. “FHIR meaning” is a concise description; consult the official R4 definitions for full semantics.
