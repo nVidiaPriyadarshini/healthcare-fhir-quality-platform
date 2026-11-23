@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nVidiaPriyadarshini/healthcare-fhir-quality-platform/blob/main/schemas/fhir-r4/Patient.schema.json",
+  "title": "FHIR R4 Patient — platform ingestion schema",
+  "description": "Starter JSON Schema for the platform's Patient ingestion payload. This is not the official HL7 FHIR R4 Patient schema or a profile validator. Additional FHIR elements are permitted.",
+  "type": "object",
+  "properties": {
+    "resourceType": {
+      "const": "Patient",
+      "description": "FHIR resource discriminator."
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required by the platform ingestion endpoint; used as the unique persisted resource identifier."
+    },
+    "meta": {
+      "type": "object",
+      "description": "FHIR resource metadata; contents are not deeply validated by this starter schema."
+    },
+    "name": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "FHIR HumanName; nested elements are accepted without full datatype validation."
+      }
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "male",
+        "female",
+        "other",
+        "unknown"
+      ]
+    },
+    "birthDate": {
+      "type": "string",
+      "description": "FHIR date; lexical date format is not validated by this starter schema."
+    }
+  },
+  "required": [
+    "resourceType",
+    "id"
+  ],
+  "additionalProperties": true
+}
