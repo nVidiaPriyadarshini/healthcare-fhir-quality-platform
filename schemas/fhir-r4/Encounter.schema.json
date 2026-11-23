@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nVidiaPriyadarshini/healthcare-fhir-quality-platform/blob/main/schemas/fhir-r4/Encounter.schema.json",
+  "title": "FHIR R4 Encounter — platform ingestion schema",
+  "description": "Starter JSON Schema for the platform's Encounter ingestion payload. This is not the official HL7 FHIR R4 Encounter schema or a profile validator. Additional FHIR elements are permitted.",
+  "type": "object",
+  "properties": {
+    "resourceType": {
+      "const": "Encounter",
+      "description": "FHIR resource discriminator."
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Required by the platform ingestion endpoint; used as the unique persisted resource identifier."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "in-progress",
+        "onleave",
+        "finished",
+        "cancelled",
+        "entered-in-error"
+      ]
+    },
+    "class": {
+      "type": "object",
+      "description": "FHIR Coding; system and code are not currently checked by the platform."
+    },
+    "subject": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "reference"
+      ],
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object",
+      "description": "FHIR Period; start/end formats and chronology are not validated by this starter schema."
+    }
+  },
+  "required": [
+    "resourceType",
+    "id"
+  ],
+  "additionalProperties": true
+}
