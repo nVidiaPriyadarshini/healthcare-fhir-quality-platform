@@ -299,5 +299,6 @@ The dashboard currently fetches metrics and resource inventory when the React co
 
 ## 7. Related documentation
 
+- [FHIR data dictionary and schema reference](data-dictionary.md) — resource field descriptions, sample payloads, current validation behavior, persistence columns, and known schema limitations.
 - [Setup and runbook](setup.md)
 - [Project README](../README.md)
