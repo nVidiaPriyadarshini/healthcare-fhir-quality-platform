@@ -15,28 +15,27 @@
       "description": "Required by the platform ingestion endpoint; used as the unique persisted resource identifier."
     },
     "meta": {
-      "type": "object",
-      "description": "FHIR resource metadata; contents are not deeply validated by this starter schema."
+      "description": "FHIR resource metadata; contents are not checked by the current runtime validator."
     },
     "name": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "description": "FHIR HumanName; nested elements are accepted without full datatype validation."
-      }
+      "description": "FHIR HumanName array; omission is currently a warning, and the runtime validator does not inspect its structure."
     },
     "gender": {
-      "type": "string",
+      "type": [
+        "string",
+        "null"
+      ],
       "enum": [
         "male",
         "female",
         "other",
-        "unknown"
-      ]
+        "unknown",
+        null
+      ],
+      "description": "If non-null, must be one of the supported administrative gender codes."
     },
     "birthDate": {
-      "type": "string",
-      "description": "FHIR date; lexical date format is not validated by this starter schema."
+      "description": "FHIR date; format is not checked by the current runtime validator."
     }
   },
   "required": [
