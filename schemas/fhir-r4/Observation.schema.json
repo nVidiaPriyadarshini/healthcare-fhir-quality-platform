@@ -28,36 +28,39 @@
       ]
     },
     "category": {
-      "type": "array",
-      "items": {
-        "type": "object"
-      }
+      "description": "FHIR classification; not currently inspected by the runtime validator."
     },
     "code": {
-      "type": "object",
-      "description": "FHIR CodeableConcept; detailed coding and terminology checks are not implemented."
+      "description": "FHIR CodeableConcept; omission is a warning, but its structure is not inspected by the runtime validator."
     },
     "subject": {
-      "type": "object",
-      "properties": {
-        "reference": {
-          "type": "string",
-          "minLength": 1
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "reference": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "reference"
+          ],
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "reference"
       ],
-      "additionalProperties": true
+      "description": "Optional; if supplied and non-null, must contain a string reference."
     },
     "valueQuantity": {
-      "type": "object",
-      "description": "FHIR Quantity; value, unit, system and code are not deeply validated."
+      "description": "FHIR Quantity; not currently inspected by the runtime validator."
     }
   },
   "required": [
     "resourceType",
-    "id"
+    "id",
+    "status"
   ],
   "additionalProperties": true
 }
