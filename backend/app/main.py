@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import Depends,FastAPI,HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func,select
 from sqlalchemy.orm import Session
 from .db import Base,engine,get_db
@@ -10,6 +11,7 @@ async def lifespan(app:FastAPI):
     Base.metadata.create_all(bind=engine)
     yield
 app=FastAPI(title="Healthcare FHIR Quality Platform",version="1.0.0",lifespan=lifespan)
+app.add_middleware(CORSMiddleware,allow_origins=["http://localhost:5173","http://localhost:4173"],allow_credentials=False,allow_methods=["*"],allow_headers=["*"])
 @app.get("/health")
 def health(): return {"status":"ok","fhir_version":"R4"}
 @app.post("/api/v1/validate")
