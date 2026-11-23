@@ -1,0 +1,1 @@
+{"resourceType":"Patient","id":"synthetic-patient-001","meta":{"profile":["http://hl7.org/fhir/StructureDefinition/Patient"]},"name":[{"use":"official","family":"Example","given":["Alex"]}],"gender":"unknown","birthDate":"1980-01-01"}
