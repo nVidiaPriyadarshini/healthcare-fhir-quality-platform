@@ -26,30 +26,36 @@
       ]
     },
     "class": {
-      "type": "object",
-      "description": "FHIR Coding; system and code are not currently checked by the platform."
+      "description": "FHIR Coding; omission is a warning, but its structure is not inspected by the runtime validator."
     },
     "subject": {
-      "type": "object",
-      "properties": {
-        "reference": {
-          "type": "string",
-          "minLength": 1
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "reference": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "reference"
+          ],
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "reference"
       ],
-      "additionalProperties": true
+      "description": "Optional; if supplied and non-null, must contain a string reference."
     },
     "period": {
-      "type": "object",
-      "description": "FHIR Period; start/end formats and chronology are not validated by this starter schema."
+      "description": "FHIR Period; not currently inspected by the runtime validator."
     }
   },
   "required": [
     "resourceType",
-    "id"
+    "id",
+    "status"
   ],
   "additionalProperties": true
 }
