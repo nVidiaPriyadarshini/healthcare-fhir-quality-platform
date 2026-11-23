@@ -30,6 +30,6 @@ cd ../frontend && npm install && npm run build
 
 FHIR Patient, Observation and Encounter examples are in `backend/sample-data/`. Submit them to `POST /api/v1/resources`; validate without persistence using `POST /api/v1/validate`.
 
-See [setup documentation](docs/setup.md) and [architecture](docs/architecture.md).
+See [setup documentation](docs/setup.md), [architecture](docs/architecture.md), and the [FHIR data dictionary](docs/data-dictionary.md). Machine-readable starter schemas for Patient, Observation and Encounter are in [`schemas/fhir-r4/`](schemas/fhir-r4/).
 
 **Safety:** all included records are fictional. Do not use real patient data. The starter rules are not a complete HL7 FHIR R4/profile conformance validator or a certified clinical system.
